@@ -1,0 +1,4 @@
+.vscode
+core*
+*.out
+out.*
