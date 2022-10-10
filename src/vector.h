@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include <stdlib.h>
+#include <memory.h>
 
 typedef struct {
     uint32_t count;
@@ -27,7 +28,7 @@ void vec_free(vector* vec) {
 }
 
 void vec_resize(vector* vec, uint32_t new_size) {
-    vec->values = reallocarray(vec->values, vec->count, new_size);
+    vec->values = (void**) realloc(vec->values, new_size * sizeof(void*));
     vec->capacity = new_size;
     if(vec->count > new_size) vec->count = new_size;
 }

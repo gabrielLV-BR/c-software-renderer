@@ -1,14 +1,15 @@
 CC=gcc
 LDFLAGS=-lm -g
 TARGET=main.out
-DEFINES= -D ASSETS=\"$(shell pwd)/assets/\" -D ROOT=\"$(shell pwd)\"
+WORKING_DIR:=$(CURDIR)
+DEFINES=-D ROOT=\"$(WORKING_DIR)\" -D ASSETS=\"$(WORKING_DIR)/assets\"
 LDFLAGS+=$(DEFINES)
+
 build:
-	echo "Assets: $(DEFINES)" 
 	$(CC) $(LDFLAGS) src/*.c -o $(TARGET)
 
 run: build
-	clear
+	echo "Working directory: $(WORKING_DIR)"
 	./$(TARGET)
 
 .PHONY: clean

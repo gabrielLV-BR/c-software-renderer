@@ -15,6 +15,8 @@ int main() {
 
     paint(pixels, width, height);
 
+    printf("Writing image...\n");
+
     write_out(pixels, width, height);
     free_pixels(pixels, width, height);
 
@@ -35,7 +37,7 @@ pixels create_pixels(int width, int height) {
 }
 
 void write_out(pixels pixels, int width, int height) {
-    FILE* output = fopen(ROOT"/out.ppm", "w");
+    FILE* output = fopen("out.ppm", "w");
 
     if(output == NULL) {
         fprintf(stderr, "Error when opening file\n");
