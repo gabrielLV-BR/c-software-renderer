@@ -7,16 +7,31 @@
 #include "pixels.h"
 
 int main() {
-    int width = 200;
-    int height = 200;
-    pixels pixels = create_pixels(width, height);
+    float a[3][3] = {
+        { 1, 0, 0 },
+        { 0, 1, 0 },
+        { 0, 0, 1 }
+    };
 
-    paint(pixels, width, height);
+    float b[3][3] = {
+        { 1, 0, 0 },
+        { 0, 1, 0 },
+        { 0, 0, 1 }
+    };
+    
+    float** out = mat3x3_mult(a, b);
+    mat3x3_print(out);
 
-    printf("Writing image...\n");
+    // int width = 200;
+    // int height = 200;
+    // pixels pixels = create_pixels(width, height);
 
-    write_out(pixels, width, height);
-    free_pixels(pixels, width, height);
+    // paint(pixels, width, height);
 
-    return 0;
+    // printf("Writing image...\n");
+
+    // write_out(pixels, width, height);
+    // free_pixels(pixels, width, height);
+
+    // return 0;
 }
