@@ -43,7 +43,7 @@ void line(float x0, float y0, float x1, float y1, pixels pixels, color c) {
 }
 
 void paint(pixels pixels, int width, int height) {
-    vector faces = load_model(ASSETS"\\monkey.obj");
+    vector faces = load_model(ASSETS"/monkey.obj");
     fill(pixels, width, height, (color){0, 0, 0});
 
     color white = {
