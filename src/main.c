@@ -8,18 +8,19 @@
 
 int main() {
     float a[3][3] = {
-        { 1, 0, 0 },
+        { 1, 2, 0 },
         { 0, 1, 0 },
-        { 0, 0, 1 }
+        { 3, 0, 1 }
     };
 
     float b[3][3] = {
-        { 1, 0, 0 },
+        { 2, 2, 0 },
         { 0, 1, 0 },
-        { 0, 0, 1 }
+        { 3, 0, 2 }
     };
     
-    float** out = mat3x3_mult(a, b);
+    float out[3][3];
+    mat3x3_mult(a, b, out);
     mat3x3_print(out);
 
     // int width = 200;
