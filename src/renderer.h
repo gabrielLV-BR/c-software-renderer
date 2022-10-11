@@ -4,6 +4,7 @@
 #include <math.h>
 #include <stdint.h>
 
+#include "math.h"
 #include "object.h"
 #include "vector.h"
 #include "pixels.h"
@@ -45,9 +46,9 @@ void paint(pixels pix, int width, int height) {
 
     for(int i = 0; i < faces.count; i++) {
         polygon* p = (polygon*) faces.values[i];
-        vertex a = p->a;
-        vertex b = p->b;
-        vertex c = p->c;
+        vec3 a = p->a;
+        vec3 b = p->b;
+        vec3 c = p->c;
 
         line(a.x, a.y, b.x, b.y, pix, white);
         line(b.x, b.y, c.x, c.y, pix, white);

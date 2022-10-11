@@ -1,17 +1,25 @@
 CC=gcc
-LDFLAGS=-lm -g
 TARGET=main.out
-WORKING_DIR:=$(CURDIR)
-DEFINES=-D ROOT=\"$(WORKING_DIR)\" -D ASSETS=\"$(WORKING_DIR)/assets\"
+LIB_FOLDER=$(CURDIR)/libs
+
+LDFLAGS=-g -lm -lSDL2
+INCLUDES=$(foreach dir, $(wildcard $(LIB_FOLDER)/*), -I$(dir)/include/ -L$(dir)/bin/)
+LDFLAGS+=$(INCLUDES)
+
+DEFINES=-D ROOT=\"$(CURDIR)\" -D ASSETS=\"$(CURDIR)/assets\"
 LDFLAGS+=$(DEFINES)
 
-build:
-	$(CC) $(LDFLAGS) src/*.c -o $(TARGET)
+all: $(TARGET)
 
-run: build
-	echo "Working directory: $(WORKING_DIR)"
-	./$(TARGET)
+$(TARGET):
+	@echo "Running BUILD tasks..."
+	@$(CC) $(LDFLAGS) src/*.c -o $(TARGET)
+
+run: $(TARGET)
+	@echo "Working directory: $(CURDIR)"
+	@./$(TARGET)
 
 .PHONY: clean
 clean:
-	rm $(TARGET)
+	@echo "Cleaning up..."
+	@rm $(TARGET)
