@@ -3,14 +3,22 @@
 
 #include <stdio.h>
 
-typedef float matrix3x3[3][3];
+float** create_matrix(int dimensions) {
+    float** matrix = calloc(dimensions, sizeof(float));
+    for(int i = 0; i < dimensions; i++) {
+        matrix[i] = calloc(dimensions, sizeof(float));
+        for(int k = 0; k < dimensions; k++)
+            matrix[i][k] = 0;
+    }
+    return matrix;
+}
 
-void mat3x3_mult(float a[3][3], float b[3][3], float out[3][3]) {
-    for(int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) {
+void matrix_mult(int d, float* a[], float* b[], float* out[]) {
+    for(int i = 0; i < d; i++) {
+        for (int j = 0; j < d; j++) {
             float total = 0;
 
-            for(int k = 0; k < 3; k++)
+            for(int k = 0; k < d; k++)
                 total += a[i][k] * b[k][j];
 
             out[i][j] = total;
@@ -18,10 +26,10 @@ void mat3x3_mult(float a[3][3], float b[3][3], float out[3][3]) {
     }
 }
 
-void mat3x3_print(float a[3][3]) {
+void matrix_print(int d, float* a[]) {
     printf("---\n");
-    for(int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) {
+    for(int i = 0; i < d; i++) {
+        for (int j = 0; j < d; j++) {
             printf("%.2f ", a[i][j]);
         }
         printf("\n");
