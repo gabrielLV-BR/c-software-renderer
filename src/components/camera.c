@@ -1,22 +1,8 @@
-#ifndef CAMERA_H
-#define CAMERA_H
-
-#include "math.h"
-
-typedef struct {
-    float fob;
-    float aspect;
-    float near;
-    float far;
-
-    vec3 position;
-    vec3 direction;
-} camera;
-
+#include "camera.h"
 
 float** get_camera_look_at(camera* cam, vec3 target) {
     // direction
-    cam->direction = vec3_normalize(vec3_sub(dir, cam->position));
+    cam->direction = vec3_normalize(vec3_sub(target, cam->position));
 
     // para pegar o eixo direito, primeiro criamos um cima "falso"
     vec3 up = { 0, 1, 0 };
@@ -29,12 +15,7 @@ float** get_camera_look_at(camera* cam, vec3 target) {
     float** a = create_matrix(4);
     float** b = create_matrix(4);
 
-
-
     float** look_at = create_matrix(4);
 
     return look_at;
 }
-
-
-#endif

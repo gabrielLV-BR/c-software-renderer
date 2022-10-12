@@ -4,32 +4,40 @@
 
 #include "SDL2/SDL.h"
 
-#include "renderer.h"
-#include "math.h"
-#include "pixels.h"
+#include "components/renderer.h"
+#include "components/maths.h"
+
+#define WIDTH 500
+#define HEIGHT 500
 
 int main(int argc, char *argv[]) {
-    //The window we'll be rendering to
     SDL_Window* window = NULL;
-    
-    //The surface contained by the window
     SDL_Surface* screenSurface = NULL;
-
-    //Initialize SDL
     if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
     {
         printf( "SDL could not initialize! SDL_Error: %s\n", SDL_GetError() );
     }
-    // int width = 200;
-    // int height = 200;
-    // pixels pixels = create_pixels(width, height);
 
-    // paint(pixels, width, height);
+    window = SDL_CreateWindow("Oi", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, 0);
+    SDL_Renderer* renderer = SDL_CreateRenderer(window, 0, 0);
 
-    // printf("Writing image...\n");
+    tiny_renderer tiny_renderer = tiny_renderer_new(renderer, (uint32_t)WIDTH, (uint32_t)HEIGHT);
+    tiny_renderer_load(&tiny_renderer);
 
-    // write_out(pixels, width, height);
-    // free_pixels(pixels, width, height);
+    SDL_Event event;
+    char running = 1;
+    while(running == 1) {
+        while(SDL_PollEvent(&event)) {
+            switch (event.type)
+            {
+            case SDL_QUIT:
+                running = 0;
+            }
+        }
+        tiny_renderer_render(&tiny_renderer);
+    }
+
+    tiny_renderer_delete(&tiny_renderer);
 
     return 0;
 }

@@ -1,14 +1,10 @@
-#ifndef MATH_H
-#define MATH_H
-
+#include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
 
 #define EPSILON 0.001
 
-typedef struct {
-    float x, y, z;
-} vec3;
+#include "maths.h"
 
 float vec3_magnitude(vec3 v) {
     return sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
@@ -46,9 +42,9 @@ float vec3_dot(vec3 a, vec3 b) {
 
 
 float** create_matrix(int dimensions) {
-    float** matrix = calloc(dimensions, sizeof(float));
+    float** matrix = (float**) calloc(dimensions, sizeof(float));
     for(int i = 0; i < dimensions; i++) {
-        matrix[i] = calloc(dimensions, sizeof(float));
+        matrix[i] = (float*) calloc(dimensions, sizeof(float));
         for(int k = 0; k < dimensions; k++)
             matrix[i][k] = 0;
     }
@@ -68,6 +64,8 @@ void matrix_mult(int d, float* a[], float* b[], float* out[]) {
     }
 }
 
+#ifndef NDEBUG
+
 void matrix_print(int d, float* a[]) {
     printf("---\n");
     for(int i = 0; i < d; i++) {
@@ -79,5 +77,8 @@ void matrix_print(int d, float* a[]) {
     printf("---\n");
 }
 
+#else
+
+inline void matrix_print(int d, float* a[]) {}
 
 #endif

@@ -1,17 +1,13 @@
-#ifndef OBJECT_H
-#define OBJECT_H
-
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <string.h>
 
+#include "maths.h"
 #include "vector.h"
+#include "model.h"
 
-typedef struct {
-    vec3 a, b, c;
-} polygon;
-
-vector load_model(char* path) {
+vector load_obj_model(char* path) {
     FILE* file = fopen(path, "r");
     char* line = NULL;
     size_t line_size = 0;
@@ -19,8 +15,8 @@ vector load_model(char* path) {
     int i = 0;
     size_t size = 0;
 
-    vector vertices = vec_new(507u);
-    vector faces    = vec_new(100u);
+    vector vertices = vector_new(507u);
+    vector faces    = vector_new(100u);
 
     if(file == NULL) goto END;
 
@@ -40,7 +36,7 @@ vector load_model(char* path) {
             v->x = values[0] * 100.0 + 100.0;
             v->y = values[1] * 100.0 + 100.0;
             v->z = values[2] * 100.0 + 100.0;
-            vec_push(&vertices, (void*)v);
+            vector_push(&vertices, (void*)v);
         } else if (strcmp(token, "f") == 0) {
             // Face
             int32_t values[3];
@@ -52,7 +48,7 @@ vector load_model(char* path) {
             poly->a = *(vec3*)vertices.values[values[0]];
             poly->b = *(vec3*)vertices.values[values[1]];
             poly->c = *(vec3*)vertices.values[values[2]];
-            vec_push(&faces, (void*)poly);
+            vector_push(&faces, (void*)poly);
         }
 
     }
@@ -63,8 +59,6 @@ vector load_model(char* path) {
 END:
     free(line);
     fclose(file);
-    vec_free(&vertices);
+    vector_free(&vertices);
     return faces;
 }
-
-#endif
