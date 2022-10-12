@@ -15,8 +15,9 @@ DEPENDENCIES=maths renderer camera vector model
 # Rules
 
 build: $(foreach dep, $(DEPENDENCIES), $(dep).o)
-	@echo "Running BUILD tasks..."
-	@$(CC) $(CFLAGS) src/main.c out/*.o -o $(TARGET)
+	@echo "Building project..."
+	@$(CC) $(CFLAGS) src/main.c $^ -o $(TARGET)
+	@echo "Done"
 
 run: build
 	@echo "Working directory: $(CURDIR)"
@@ -26,11 +27,11 @@ run: build
 
 %.o: src/components/%.c src/components/%.h
 	@echo "Compiling $*"
-	$(CC) $(CFLAGS) -c $< -o out/$*.o
+	@$(CC) $(CFLAGS) -c $<
 
 # Clean
 
 .PHONY: clean
 clean:
 	@echo "Cleaning up..."
-	@rm $(TARGET) ./out/*
+	@rm -f $(TARGET) *.o

@@ -1,18 +1,17 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <memory.h>
 
 #include "SDL2/SDL.h"
 
 #include "components/renderer.h"
-#include "components/maths.h"
 
 #define WIDTH 500
 #define HEIGHT 500
 
 int main(int argc, char *argv[]) {
     SDL_Window* window = NULL;
-    SDL_Surface* screenSurface = NULL;
+    SDL_Surface *screenSurface = NULL;
+
     if( SDL_Init( SDL_INIT_VIDEO ) < 0 )
     {
         printf( "SDL could not initialize! SDL_Error: %s\n", SDL_GetError() );

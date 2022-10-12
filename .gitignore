@@ -1,14 +1,15 @@
-#vscode stuff
+# ide stuff
 .vscode
+.idea
 
 # core dumps
 core*
 
 # object files
-out/*
+*.o
 
-#libraries
+# libraries
 libs/sdl2/
 
-#Executable
+# executable
 TINY_RENDERER

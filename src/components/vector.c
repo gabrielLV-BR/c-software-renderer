@@ -1,7 +1,6 @@
 #include "vector.h"
 
 #include <stdlib.h>
-#include <memory.h>
 
 vector vector_new(uint32_t capacity) {
     vector vec;
@@ -29,5 +28,5 @@ void vector_push(vector* vec, void* val) {
     if(vec->count + 1 > vec->capacity) {
         vector_resize(vec, vec->capacity * 2);
     }
-    vec->values[vec->count++] = val;
+    vec->values[++vec->count] = val;
 }
